@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
-from parc_auto.models.models import Entretien, Marque, Modele, Vehicule
+from parc_auto.models import Entretien, Marque, Modele, Vehicule
 
 
 class MarqueSerializer(serializers.ModelSerializer):
@@ -26,15 +26,6 @@ class VehiculeSerializer(serializers.ModelSerializer):
         source="modele",  # Dit à Django d'enregistrer ça dans le champ 'modele'
         write_only=True,
     )
-
-    # immatriculation = serializers.CharField(
-    #     validators=[
-    #         UniqueValidator(
-    #             queryset=Vehicule.objects.all(),
-    #             message="Ce véhicule est déjà répertorié.",  # Ton message ici
-    #         )
-    #     ]
-    # )
 
     class Meta:
         model = Vehicule

@@ -173,7 +173,7 @@ class VehiculeView(BaseView):
                         trailing=ft.IconButton(
                             ft.Icons.DELETE_OUTLINE_ROUNDED,
                             icon_color=ft.Colors.RED_400,
-                            data=v.id,
+                            data=v,
                             on_click=self.delete_click,
                         ),
                     ),
@@ -214,8 +214,7 @@ class VehiculeView(BaseView):
         await self.page.push_route("/vehicules/add")
 
     async def delete_click(self, e):
-        vehicule_id = e.control.data
-        print(f"Suppression demandée pour le véhicule ID: {vehicule_id}")
+        vehicule = e.control.data
 
         def close_dlg(e):
             self.page.dialog.open = False
@@ -223,14 +222,14 @@ class VehiculeView(BaseView):
 
         async def confirm_delete(e):
             # Logique de suppression réelle ici
-            await self.vehicule_controller.delete_vehicule(vehicule_id)
+            await self.vehicule_controller.delete_vehicule(vehicule.id)
             self.page.dialog.open = False
             await self.load_data()
 
         self.page.dialog = ft.AlertDialog(
             modal=True,
             title=ft.Text("Confirmation"),
-            content=ft.Text(f"Supprimer le véhicule {vehicule_id} ?"),
+            content=ft.Text(f"Supprimer le véhicule {vehicule.immatriculation} ?"),
             actions=[
                 ft.TextButton("Annuler", on_click=close_dlg),
                 ft.TextButton("Supprimer", on_click=confirm_delete),

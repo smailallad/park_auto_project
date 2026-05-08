@@ -1,12 +1,10 @@
 import flet as ft
-
 from config.config import myColors
 
 
 def HomeView(page: ft.Page, auth_controller):
-
-    async def on_logout_click(e):
-        await page.push_route("/logout")
+    # async def on_logout_click(e):
+    #     await page.push_route("/logout")
 
     def create_task():
         print("Call create task")
@@ -20,15 +18,12 @@ def HomeView(page: ft.Page, auth_controller):
     async def handle_change(e: ft.Event[ft.NavigationDrawer]):
         match e.control.selected_index:
             case 0:
-                print("Marque Vehicule")
                 await page.push_route("/users")
             case 1:
-                print("Vehicule")
                 await page.push_route("/vehicules")
             case 2:
                 print("Entretien")
             case 3:
-                print("Quitter")
                 await page.push_route("/logout")
                 return
         await page.close_drawer()

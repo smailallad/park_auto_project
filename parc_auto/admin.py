@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from parc_auto.models.models import Modele, Marque, Vehicule, Entretien
+from parc_auto.models import Modele, Marque, Vehicule, Entretien
 
 # On importe depuis le package models
 

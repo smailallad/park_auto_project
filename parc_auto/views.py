@@ -1,7 +1,7 @@
 from rest_framework import viewsets, filters
 from rest_framework.pagination import PageNumberPagination
 
-from parc_auto.models.models import Entretien, Vehicule, Modele
+from parc_auto.models import Entretien, Vehicule, Modele
 from .serializers import ModeleSerializer, VehiculeSerializer, EntretienSerializer
 
 
@@ -16,7 +16,7 @@ class VehiculeViewSet(viewsets.ModelViewSet):
     # queryset = Vehicule.objects.all().order_by(
     #     "-id"
     # )
-    queryset = Vehicule.objects.select_related("modele__marque").all().order_by("-id")
+    queryset = Vehicule.objects.select_related("modele__marque").all().order_by("id")
     # Ordonner pour une pagination stable
     serializer_class = VehiculeSerializer
     pagination_class = VehiculePagination

@@ -28,6 +28,7 @@ class Vehicule(models.Model):
     immatriculation = models.CharField(
         max_length=20,
         unique=True,
+        error_messages={"unique": "Cette immatriculation est déjà utilisée."},
     )
     modele = models.ForeignKey(
         Modele, on_delete=models.PROTECT, related_name="vehicules"
@@ -37,20 +38,11 @@ class Vehicule(models.Model):
     actif = models.BooleanField(default=True)
 
     class Meta:
-        unique_together = [
-            ["nom", "modele"],
-            ["immatriculation"],
-        ]
         constraints = [
             models.UniqueConstraint(
                 fields=["nom", "modele"],
                 name="unique_nom_par_modele",
                 violation_error_message="Ce code lettre est déjà utilisé pour ce modèle.",
-            ),
-            models.UniqueConstraint(
-                fields=["immatriculation"],
-                name="unique_immatriculation",
-                violation_error_message="Cette immatriculation est déjà utilisée.",
             ),
         ]
 
